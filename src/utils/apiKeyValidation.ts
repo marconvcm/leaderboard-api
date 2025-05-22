@@ -1,21 +1,24 @@
 import dotenv from 'dotenv';
+import * as apiKeyService from '../services/apiKey.service';
+import logger from './logger';
 dotenv.config();
 
-export type ApiKeyProvider = 'env' | 'external';
-
-// This function will be extended to support external validation
 export async function apiKeyValidation(apiKey: string): Promise<boolean> {
-   // Provider is determined by env, default to 'env'
-   const provider = process.env.API_KEY_PROVIDER as ApiKeyProvider || 'env';
-
-   if (provider === 'env') {
-      // Accept a comma-separated list of valid API keys in .env as API_KEYS
-      const validKeys = process.env.API_KEYS?.split(',').map(k => k.trim()) || [];
-      return validKeys.includes(apiKey);
-   } else if (provider === 'external') {
-      // Placeholder for external service validation
-      // TODO: Implement external service call
+   try {
+      // Get the API key from the database
+      const apiKeyRecord = await apiKeyService.getApiKey(apiKey);
+      
+      // If no API key found or it's disabled, return false
+      if (!apiKeyRecord || !apiKeyRecord.enabled) {
+         return false;
+      }
+      
+      // Update the last used timestamp
+      await apiKeyService.updateLastUsed(apiKey);
+      
+      return true;
+   } catch (error) {
+      logger.error('Error validating API key', { error, apiKey: apiKey.substring(0, 4) + '***' });
       return false;
    }
-   return false;
 }

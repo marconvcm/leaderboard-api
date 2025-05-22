@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import leaderboardRoutes from "./routes/leaderboard.routes";
 import authRoutes from './routes/auth.routes';
+import apiKeyRoutes from './routes/apiKey.routes';
 import logger from './utils/logger';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -39,6 +40,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use("/v1/leaderboard", leaderboardRoutes);
 
 app.use('/auth', authRoutes);
+
+app.use('/admin/api-keys', apiKeyRoutes);
 
 app.use('/health', healthCheck);
 
