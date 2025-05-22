@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { requestChallenge, verifyHmac } from '../controllers/auth.controller';
 
-const router = express.Router();
+const router = Router();
 
 router.post('/challenge', (req, res, next) => requestChallenge(req, res, next));
 router.post('/verify', (req, res, next) => verifyHmac(req, res, next));

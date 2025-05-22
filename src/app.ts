@@ -10,6 +10,7 @@ import rateLimit from 'express-rate-limit';
 import { errorHandler } from './utils/errorHandler';
 import healthCheck from './utils/healthCheck';
 import swaggerUi from 'swagger-ui-express';
+import { basicAuth } from './utils/swaggerAuth';
 // @ts-ignore
 import openapi from './utils/openapi';
 
@@ -41,7 +42,8 @@ app.use('/auth', authRoutes);
 
 app.use('/health', healthCheck);
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi));
+// Protect Swagger UI with basic authentication
+app.use('/docs', basicAuth, swaggerUi.serve, swaggerUi.setup(openapi));
 
 // Centralized error handler for consistent error responses
 app.use(errorHandler);
