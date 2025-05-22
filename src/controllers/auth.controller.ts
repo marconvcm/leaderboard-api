@@ -79,7 +79,7 @@ export async function verifyHmac(req: Request, res: Response, next: Function): P
          return;
       }
 
-      const expectedHmac = crypto.createHmac('sha256', secret).update(challenge).digest('hex');
+      const expectedHmac = crypto.createHmac('sha256', secret).update(challenge).digest('base64');
       if (hmac !== expectedHmac) {
          res.status(401).json({ error: 'Invalid HMAC' });
          return;

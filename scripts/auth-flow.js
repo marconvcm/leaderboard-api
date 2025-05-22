@@ -40,7 +40,7 @@ async function main() {
     console.log(`\n🔐 Generating HMAC with secret: ${maskSecret(secret)}`);
     const hmac = crypto.createHmac('sha256', secret)
       .update(challenge)
-      .digest('hex');
+      .digest('base64');
     console.log(`  - HMAC: ${hmac}`);
     
     // Step 3: Verify and get token
