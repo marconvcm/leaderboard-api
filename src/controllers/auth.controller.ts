@@ -14,6 +14,7 @@ const challengeStore = new Map<string, ChallengeData>();
 // Example: API key/secret pairs (in production, store securely)
 const apiClients: Record<string, string> = {
    'demo-api-key': 'demo-secret',
+   'test-api-key': 'test-secret',
 };
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
@@ -40,7 +41,7 @@ export function requestChallenge(req: Request, res: Response, next: Function): v
       // Set up timeout to auto-expire challenge
       const timeout = setTimeout(() => {
          challengeStore.delete(requestId);
-      }, 2 * 60 * 1000); // expire in 2 min
+      }, 5 * 60 * 1000); // expire in 5 min
       
       // Store challenge data with its timeout
       challengeStore.set(requestId, { challenge, timeout });
