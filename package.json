@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --forceExit --detectOpenHandles",
     "start": "ts-node src/server.ts",
     "dev": "NODE_ENV=dev nodemon src/server.ts",
     "build": "tsc"
@@ -14,12 +14,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

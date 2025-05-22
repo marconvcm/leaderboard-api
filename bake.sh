@@ -3,7 +3,7 @@
 # Example: bash fake_data.sh mykey123 http://localhost:3000/score
 
 API_KEY=${1:-test-api-key}
-API_URL=${2:-http://localhost:3000/leaderboard/score}
+API_URL=${2:-http://localhost:3000/v1/leaderboard/score}
 
 USERS=(alice bob carol dave eve frank)
 
