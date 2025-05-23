@@ -8,7 +8,6 @@
  * Where [name] is an optional descriptive name for the API key (defaults to "Admin API Key")
  */
 
-require('dotenv').config();
 const mongoose = require('mongoose');
 const { createApiKey } = require('../dist/services/apiKey.service');
 const logger = require('../dist/utils/logger');

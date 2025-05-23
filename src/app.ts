@@ -22,8 +22,26 @@ app.use(express.json());
 
 // Security headers
 app.use(helmet());
-// CORS (allow all by default, restrict as needed)
-app.use(cors());
+// CORS configuration to allow itch.io and its CDNs
+app.use(cors({
+   origin: [
+      // itch.io domains
+      'https://itch.io',
+      'https://*.itch.io',
+      'https://itch.zone',
+      'https://*.itch.zone',
+      // itch.io CDNs
+      'https://*.hwcdn.net',
+      'https://*.ssl.hwcdn.net',
+      'https://img.itch.zone',
+      // Development environment
+      'http://localhost:3000',
+      'http://localhost:8080'
+   ],
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+   allowedHeaders: ['Content-Type', 'Authorization'],
+   credentials: true
+}));
 // Rate limiting
 app.use(rateLimit({
    windowMs: 15 * 60 * 1000, // 15 minutes

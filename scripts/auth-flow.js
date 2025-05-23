@@ -3,7 +3,6 @@
 
 const axios = require('axios');
 const crypto = require('crypto');
-const readline = require('readline');
 
 // Configuration
 const API_BASE = process.env.API_BASE || 'http://localhost:3000';
@@ -21,7 +20,7 @@ if (!apiKey) {
 }
 
 // The secret can be passed as second argument or we use mapping
-const secret = args[1] || getSecretForApiKey(apiKey);
+const secret = args[1]
 
 // Main function
 async function main() {
@@ -67,16 +66,6 @@ async function main() {
     console.error('\n❌ Error:', error.response?.data || error.message);
     process.exit(1);
   }
-}
-
-// Helper to get the secret for an API key (in production this would be from a secure store)
-function getSecretForApiKey(key) {
-  const secrets = {
-    'demo-api-key': 'demo-secret',
-    'test-api-key': 'test-secret'
-  };
-  
-  return secrets[key] || DEFAULT_SECRET;
 }
 
 // Helper to mask the secret when displaying
