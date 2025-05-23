@@ -25,15 +25,7 @@ app.use(helmet());
 // CORS configuration to allow itch.io and its CDNs
 app.use(cors({
    origin: [
-      // itch.io domains
-      'https://itch.io',
-      'https://*.itch.io',
-      'https://itch.zone',
-      'https://*.itch.zone',
-      // itch.io CDNs
-      'https://*.hwcdn.net',
-      'https://*.ssl.hwcdn.net',
-      'https://img.itch.zone',
+      'https://html-classic.itch.zone',
       // Development environment
       'http://localhost:3000',
       'http://localhost:8080'
