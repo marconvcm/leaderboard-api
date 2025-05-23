@@ -78,7 +78,7 @@ describe('AuthController', () => {
       
       // Compute HMAC
       const crypto = require('crypto');
-      const hmac = crypto.createHmac('sha256', secret).update(challenge).digest('hex');
+      const hmac = crypto.createHmac('sha256', secret).update(challenge).digest('base64');
       
       // Spy on clearTimeout
       const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
