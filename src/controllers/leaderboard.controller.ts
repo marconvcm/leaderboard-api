@@ -58,3 +58,31 @@ export async function getLeaderboard(req: Request, res: Response, next: Function
       next(err);
    }
 }
+
+export async function getTopScore(req: Request, res: Response, next: Function): Promise<void> {
+   const { username } = req.body;
+   logger.info('getMyTopScore called', { apiKey: req.header('x-api-key'), username });
+   try {
+      const segment = await ScoreSegment.findOne({ apiKey: req.header('x-api-key') });
+      if (!segment) {
+         logger.info('No segment found for API key', { apiKey: req.header('x-api-key') });
+         res.json({ username, score: 0 });
+         return;
+      }
+
+      const user = segment.users.get(username);
+      if (!user) {
+         logger.info('No user found', { apiKey: req.header('x-api-key'), username });
+         res.json({ username, score: 0 });
+         return;
+      }
+
+      logger.info('Top score returned', { apiKey: req.header('x-api-key'), username, topScore: user.topScore });
+      res.json({ username, score: user.topScore });
+   } catch (err) {
+      logger.error('Error in getMyTopScore', { error: err });
+      (err as any).status = 500;
+      (err as any).code = 'INTERNAL_ERROR';
+      next(err);
+   }
+}
