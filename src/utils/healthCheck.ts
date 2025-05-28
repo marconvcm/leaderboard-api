@@ -8,7 +8,7 @@ router.get('/', (req: Request, res: Response) => {
    res.status(200).json({
       live: true,
       ready,
-      env: { ...process.env }
+      version: process.env.GIT_COMMIT || process.env.RENDER_GIT_COMMIT || 'development',
    });
 });
 
