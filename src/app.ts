@@ -40,6 +40,7 @@ app.use(rateLimit({
    max: 100, // limit each IP to 100 requests per windowMs
    standardHeaders: true,
    legacyHeaders: false,
+   skip: (req: Request) => req.path == '/health'
 }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
