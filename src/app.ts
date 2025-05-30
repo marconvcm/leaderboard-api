@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import leaderboardRoutes from "./routes/leaderboard.routes";
 import authRoutes from './routes/auth.routes';
 import apiKeyRoutes from './routes/apiKey.routes';
+import nicknameRoutes from './routes/nickname.routes';
 import logger from './utils/logger';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -14,10 +15,11 @@ import swaggerUi from 'swagger-ui-express';
 import { basicAuth } from './utils/swaggerAuth';
 // @ts-ignore
 import openapi from './utils/openapi';
+import normalizeUrl from "./utils/normalizeUrl";
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 app.use(express.json());
 
 // Security headers
@@ -48,11 +50,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
    next();
 });
 
+app.use(normalizeUrl);
+
 app.use("/v1/leaderboard", leaderboardRoutes);
 
 app.use('/auth', authRoutes);
 
 app.use('/admin/api-keys', apiKeyRoutes);
+
+app.use('/nickname', nicknameRoutes);
 
 app.use('/health', healthCheck);
 

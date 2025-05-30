@@ -29,7 +29,7 @@ async function main() {
     
     // Step 1: Request a challenge
     console.log('\n📤 Requesting challenge...');
-    const challengeResponse = await axios.post(`${API_BASE}/auth/challenge`, { apiKey });
+    const challengeResponse = await axios.post(`${API_BASE}//auth/challenge`, { apiKey });
     const { challenge, requestId } = challengeResponse.data;
     console.log(`📥 Received:`);
     console.log(`  - Challenge: ${challenge}`);

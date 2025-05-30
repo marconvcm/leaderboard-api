@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests --forceExit --detectOpenHandles",
+    "test": "jest --passWithNoTests --forceExit --detectOpenHandles --watch",
     "start": "ts-node src/server.ts",
     "dev": "NODE_ENV=dev nodemon src/server.ts",
     "build": "tsc",
